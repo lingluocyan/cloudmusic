@@ -1,0 +1,9 @@
+<view class="musiclist-container" wx:for="{{musiclist}}" :key="id">
+  <view class="musiclist-item"  data-musicId="{{item.id}}" data-index="{{index}}"  bind:tap="onSelect">
+    <view class="item-left">{{index+1}}</view>
+    <view class="item-right {{item.id === currentId ? 'active' : ''}}">
+      <view class="right-name">{{item.name}}</view>
+      <view class="right-desc">{{item.ar[0].name}}-{{item.al.name}}</view>
+    </view>
+  </view>
+</view>  

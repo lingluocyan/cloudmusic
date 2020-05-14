@@ -1,0 +1,9 @@
+<view class="musiclist-container" style="background:url({{listInfo.coverImgUrl}}) no-repeat"></view>
+<view class="detail-mask"></view>
+<view class="musiclist-listInfo">
+  <image src="{{listInfo.coverImgUrl}}" lazy-load></image>
+  <view class="listInfo-right">
+    {{listInfo.name}}
+  </view>
+</view>
+<x-musiclist musiclist="{{musiclist}}" /> 

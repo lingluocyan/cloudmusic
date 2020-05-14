@@ -1,0 +1,45 @@
+/* components/musiclist/musiclist.wxss */
+
+.musiclist-container {
+  width: 100%;
+}
+
+.musiclist-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx;
+}
+
+.item-left {
+  width: 80rpx;
+  color: #999;
+}
+
+.item-right {
+  flex: 8;
+  display: flex;
+  flex-grow: 1;
+  width: 0;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.right-name {
+  color: #000;
+  font-size: 32rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  font-weight: 550;
+  margin-bottom: 8rpx;
+}
+
+.right-desc {
+  color: #999;
+  font-size: 24rpx;
+}
+
+.musiclist-item .active view {
+  color: #d43c33;
+}

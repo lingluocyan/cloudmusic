@@ -1,0 +1,8 @@
+<view>
+  <view wx:for="{{arr}}" wx:key="*this">
+    <checkbox></checkbox>{{item}}
+  </view>
+  <button bindtap="change">更改排序</button>
+  <button bindtap="getMusicInfo">获取音乐信息</button>
+  <button bindtap="getMovieInfo">获取电影信息</button>
+</view>

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "playlistitem": "/components/playlistitem/playlistitem"
+  },
+  "enablePullDownRefresh": true
+}
