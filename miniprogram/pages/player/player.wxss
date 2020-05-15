@@ -51,6 +51,11 @@
   background: url(https://s3.music.126.net/m/s/img/needle.png?702cf6d95f29e2e594f53a3caab50e12) no-repeat center/contain;
   transform: rotate(-15deg);
   transform-origin: 24rpx 10rpx;
+  transition: all 0.5s ease;
+}
+
+.play.player-disc::after {
+  transform: rotate(5deg);
 }
 
 .playerimg {
@@ -60,6 +65,63 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
-  /* transform: translate(30%,30%); */
+  margin-top: -184rpx;
+  margin-left: -184rpx;
+  /* transform: translate(-50%, -50%); *//* transform: translate(30%,30%); */
+}
+
+/* 播放控件部分 */
+
+.control {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  transform: translate(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.control .iconfont {
+  color: #e2e2e2;
+}
+
+.icon-shangyishoushangyige, .icon-xiayigexiayishou {
+  font-size: 80rpx;
+}
+
+.icon-bofang1, .icon-zanting1 {
+  font-size: 100rpx;
+  margin: 0 28rpx;
+}
+
+.rotation {
+  -moz-animation: rotation infinite linear 12s;
+  -o-animation: rotation infinite linear 12s;
+  -webkit-animation: rotation infinite linear 12s;
+  animation: rotation infinite linear 12s;
+}
+
+.pauseRotate {
+  animation-play-state: paused;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 进度条部分 */
+
+.player-progress-bar {
+  position: absolute;
+  bottom: 24%;
+  left: 0;
+  /* transform: translateX(-50%); */
+  right: 0;
+  /* width: 90%; */
 }

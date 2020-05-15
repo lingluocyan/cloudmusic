@@ -1,14 +1,20 @@
 <view class="player-container" style="background:url({{picUrl}}) center/cover no-repeat"></view>
 <view class="player-mask"></view>
-
+<!-- 中间部分，旋转图片 -->
 <view class="player-info">
-  <view class="player-disc">
-    <image class="playerimg" src="{{picUrl}}"></image>
+  <view class="player-disc {{isPlaying ? 'play' : ''}}" bindtap="toggleLyric" hidden="{{isLyricShow}}">
+    <image class="playerimg rotation {{isPlaying? '' : 'pauseRotate'}}" src="{{picUrl}}"></image>
   </view>
-</view>
-
-<view class="control">
-  <text class="iconfont icon-shangyishoushangyige"></text>
-  <text class="iconfont icon-bofang"></text>
-  <text class="iconfont icon-xiayigexiayishou"></text>
+  <!-- 歌词部分 -->
+  <x-lyric isLyricShow="{{isLyricShow}}" lyric="{{lyric}}" bindtap="toggleLyric" />
+  <!-- 进度条部分 -->
+  <view class="player-progress-bar">
+    <x-progress-bar bind:musicEnd="onNext" />
+  </view>
+  <!-- 底部控制栏部分（播放，上一首，下一首） -->
+  <view class="control">
+    <text class="iconfont icon-shangyishoushangyige" bindtap="onPrev"></text>
+    <text class="iconfont {{isPlaying ? 'icon-zanting1' : 'icon-bofang1'}}" bind:tap="togglePlaying"></text>
+    <text class="iconfont icon-xiayigexiayishou" bindtap="onNext"></text>
+  </view>
 </view>

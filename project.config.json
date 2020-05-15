@@ -2,12 +2,24 @@
 	"miniprogramRoot": "miniprogram/",
 	"cloudfunctionRoot": "cloudfunctions/",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
+		"enhance": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"enhance": true
+		"coverView": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"appid": "wxc0aee5e549a2a8ea",
 	"projectname": "music-cloud",
@@ -69,7 +81,7 @@
 					"id": 4,
 					"name": "pages/player/player",
 					"pathName": "pages/player/player",
-					"query": "name=4910237102&index=0",
+					"query": "musicId=1442327120&index=0",
 					"scene": null
 				}
 			]

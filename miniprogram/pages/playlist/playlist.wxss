@@ -1,4 +1,5 @@
 /* pages/playlist/playlist.wxss */
+
 image {
   width: 100%;
 }
@@ -16,6 +17,12 @@ image {
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin-top: 10rpx;
+}
+/* 如果最后一行不足三个则样式会员，因此默认加一个伪元素补满 */
+.playlist-container:last-child::after {
+  content: '';
+  width: 220rpx;
+  height: 220rpx;
 }

@@ -28,6 +28,20 @@ exports.main = async(event, context) => {
     })
     await next()
   })
+  // 根据musicId获取当前歌曲信息
+  app.router("musicUrl", async(ctx, next) => {
+    ctx.body = await rp(BASE_URL + `/song/url?id=${event.musicId}`).then(res => {
+      return JSON.parse(res)
+    })
+    await next()
+  })
+  // 根据musciId获取当前歌曲歌词
+  app.router("lyric", async(ctx, next) => {
+    ctx.body = await rp(BASE_URL + `/lyric?id=${event.musicId}`).then(res => {
+      return res
+    })
+    await next()
+  })
 
   // 获取音乐数据
   // return await cloud.database().collection('playlist').skip(event.start).limit(event.count).orderBy('createTime', 'desc').get().then(res => {

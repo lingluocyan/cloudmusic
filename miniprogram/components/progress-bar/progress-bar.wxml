@@ -1,0 +1,16 @@
+<view class="container">
+  <text class="time">{{showTime.currentTime}}</text>
+  <!-- 定义中间可滑动区域 -->
+  <view class="control">
+    <!-- 可移动区域 -->
+    <movable-area class="movable-area">
+      <!-- 可移动容器 -->
+      <!-- damping阻尼系数 -->
+      <movable-view class="movable-view" bindchange="onChange" bindtouchend="toucheEnd" direction="horizontal" damping="1000"x="{{movableDis}}"></movable-view>
+    </movable-area>
+    <!-- 进度条 -->
+    <!-- stroke-width表示宽度 -->
+    <progress stroke-width="4" backgroundColor="#969696" activeColor="#fff" percent="{{progress}}"></progress>
+  </view>
+  <text class="time">{{showTime.totalTime}}</text>
+</view>
