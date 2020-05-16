@@ -43,16 +43,16 @@ exports.main = async(event, context) => {
   }
   console.log(list,'输出list')
   // let list = await getDb.get()
-  // 定义一个数组用于插入数据
-  let newArr = []
   // 接口获取的新数据
   let playlist = await rp(URL).then(res => {
-    return JSON.parse(res).result
+    return JSON.parse(res).result 
   })
-  for (let i = 0; i < playlist.length; i++) {
+  // 定义一个数组用于插入数据
+  let newArr = []
+  for (let i = 0; i < playlist.length; i++) { 
     let flag = true
     for (let j = 0; j < list.data.length; j++) {
-      if (playlist[i].id === list.data[i].id) {
+      if (playlist[i].id === list.data[j].id) {
         flag = false
       }
     }

@@ -7,16 +7,20 @@ let duration = 0
 // 判断当前是否正在移动
 let isMoving = false
 const getBackgroundAudioManager = wx.getBackgroundAudioManager()
+const app = getApp()
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-
+    isSame: {
+      type: Boolean,
+      value: false
+    }
   },
 
   /**
-   * 组件的初始数据
+   * 组件的初始数据 
    */
   data: {
     showTime: {
@@ -29,6 +33,9 @@ Component({
   },
   lifetimes: {
     ready() {
+      if (this.data.isSame && this.data.showTime.totalTime == '00:00') {
+        this._setTime()
+      }
       this._getMovableDis()
       this._bindBGMEvent()
     },
@@ -62,6 +69,27 @@ Component({
       // 调用api把音乐播放进度调整到计算出的当前时间
       getBackgroundAudioManager.seek(pencentTime)
     },
+    setCurrentTime() {
+      const currentTime = getBackgroundAudioManager.currentTime
+      const duration = getBackgroundAudioManager.duration
+      // 格式化时间
+      let formatTime = this._dateFormat(currentTime)
+      // 判断如果是同一秒内执行多次则取消执行，以便提高性能
+      if (currentTime.toString().split('.')[0] !== currSec) {
+        this.setData({
+          ['showTime.currentTime']: `${formatTime.min}:${formatTime.sec}`,
+          movableDis: (movableAreaWidth - movableViewWidth) * currentTime / duration,
+          progress: currentTime / duration * 100
+
+        })
+        currSec = currentTime.toString().split('.')[0]
+        // console.log(currentTime,'onTimeUpdate')
+        // 把当前播放所处的时间传出去
+        this.triggerEvent("timeUpdate", {
+          currentTime
+        })
+      }
+    },
     // 获取可移动区域的宽度
     _getMovableDis() {
       // wx.createSelectorQuery()
@@ -78,6 +106,7 @@ Component({
     _bindBGMEvent() {
       //监听背景音频播放事件
       getBackgroundAudioManager.onPlay(() => {
+        this.triggerEvent('onPlay')
         isMoving = false
         console.log('onPlay ')
       })
@@ -88,6 +117,7 @@ Component({
       // 监听背景音频暂停事件
       getBackgroundAudioManager.onPause(() => {
         console.log('onPause ')
+        this.triggerEvent('onPause')
       })
       //监听音频加载中事件。当音频因为数据不足，需要停下来加载时会触发
       getBackgroundAudioManager.onWaiting(() => {
@@ -108,21 +138,26 @@ Component({
       getBackgroundAudioManager.onTimeUpdate(() => {
         // 只有没在移动的时候才可以设置值，不然在移动的时候会冲突造成圆点跳动
         if (!isMoving) {
-          const currentTime = getBackgroundAudioManager.currentTime
-          const duration = getBackgroundAudioManager.duration
-          // 格式化时间
-          let formatTime = this._dateFormat(currentTime)
-          // 判断如果是同一秒内执行多次则取消执行，以便提高性能
-          if (currentTime.toString().split('.')[0] !== currSec) {
-            this.setData({
-              ['showTime.currentTime']: `${formatTime.min}:${formatTime.sec}`,
-              movableDis: (movableAreaWidth - movableViewWidth) * currentTime / duration,
-              progress: currentTime / duration * 100
+          this.setCurrentTime()
+          // const currentTime = getBackgroundAudioManager.currentTime
+          // const duration = getBackgroundAudioManager.duration
+          // // 格式化时间
+          // let formatTime = this._dateFormat(currentTime)
+          // // 判断如果是同一秒内执行多次则取消执行，以便提高性能
+          // if (currentTime.toString().split('.')[0] !== currSec) {
+          //   this.setData({
+          //     ['showTime.currentTime']: `${formatTime.min}:${formatTime.sec}`,
+          //     movableDis: (movableAreaWidth - movableViewWidth) * currentTime / duration,
+          //     progress: currentTime / duration * 100
 
-            })
-            currSec = currentTime.toString().split('.')[0]
-            // console.log(currentTime,'onTimeUpdate')
-          }
+          //   })
+          //   currSec = currentTime.toString().split('.')[0]
+          //   // console.log(currentTime,'onTimeUpdate')
+          //   // 把当前播放所处的时间传出去
+          //   this.triggerEvent("timeUpdate", {
+          //     currentTime
+          //   })
+          // }
         }
 
       })

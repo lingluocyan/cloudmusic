@@ -6,10 +6,10 @@
     <image class="playerimg rotation {{isPlaying? '' : 'pauseRotate'}}" src="{{picUrl}}"></image>
   </view>
   <!-- 歌词部分 -->
-  <x-lyric isLyricShow="{{isLyricShow}}" lyric="{{lyric}}" bindtap="toggleLyric" />
+  <x-lyric class="lyric" isLyricShow="{{isLyricShow}}" lyric="{{lyric}}" bindtap="toggleLyric" />
   <!-- 进度条部分 -->
   <view class="player-progress-bar">
-    <x-progress-bar bind:musicEnd="onNext" />
+    <x-progress-bar isSame="{{isSame}}" bind:musicEnd="onNext" bind:onPause="onPause" bind:onPlay="onPlay" bind:timeUpdate="timeUpdate" />
   </view>
   <!-- 底部控制栏部分（播放，上一首，下一首） -->
   <view class="control">

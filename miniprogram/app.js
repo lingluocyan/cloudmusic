@@ -1,7 +1,7 @@
 //app.js
 App({
-  onLaunch: function () {
-    
+  onLaunch: function() {
+
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -16,6 +16,17 @@ App({
       })
     }
 
-    this.globalData = {}
+    this.globalData = {
+      // 设定全局的musicId,也就是正在播放的id
+      playingMusicId: -1
+    }
+  },
+  // 设定全局id的方法
+  setPlayMusicId(musicId) {
+    this.globalData.playingMusicId = musicId
+  },
+  // 获取全局id的方法
+  getPlayMusicId() {
+    return this.globalData.playingMusicId
   }
 })
