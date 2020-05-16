@@ -18,5 +18,5 @@
 <!-- 底部 -->
 <view class="footer" style="bottom:{{footerBottom}}px">
   <text class="words-num">{{wordsNum}}/{{maxNum}}</text>
-  <button class="send-btn" size="mini">发布</button>
+  <button class="send-btn" bindtap="send" size="mini">发布</button>
 </view>

@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showModal: false
+    showModal: false,
+    blogList: []
   },
   // 发布功能，打开发布弹层
   onPublish() {
@@ -28,7 +29,7 @@ Page({
             showModal: true
           })
         }
-      } 
+      }
     })
   },
   // 登录弹窗返回的成功事件
@@ -56,11 +57,28 @@ Page({
       showModal: false
     })
   },
+  //  获取云数据库中博客的数据
+  _loadBlogList() {
+    wx.cloud.callFunction({
+      name: 'blog',
+      data: {
+        start: 0,
+        count: 10,
+        $url: 'list'
+      }
+    }).then(res => {
+      this.setData({
+        blogList: this.data.blogList.concat(res.result)
+      })
+      console.log(res, '获取云函数')
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    console.log('onload')
+    this._loadBlogList()
   },
 
   /**

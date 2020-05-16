@@ -2,8 +2,13 @@
 // 最大输入长度
 // const MAX_WORDS_NUM = 140 
 const MAX_IMAGE_NUM = 9
+// 初始化云数据库
+const db = wx.cloud.database()
+// 输入的内容
+let content = ''
+// onload接受的用户信息
+let userInfo = {}
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -20,6 +25,7 @@ Page({
   },
   setWordsLen(event) {
     if (event.detail.value) {
+      content = event.detail.value
       let wordsLen = event.detail.value.length
       this.setData({
         wordsNum: wordsLen
@@ -32,10 +38,10 @@ Page({
   // 删除图片的回调
   onDelImage(event) {
     let images = this.data.images
-    images.splice(event.currentTarget.dataset.index,1)
+    images.splice(event.currentTarget.dataset.index, 1)
     this.setData({
       images: images,
-      selectphoto:this.data.images.length >= 9 ? true : false,
+      selectphoto: this.data.images.length >= 9 ? true : false,
     })
   },
   // 预览图片
@@ -73,11 +79,80 @@ Page({
       footerBottom: 0
     })
   },
+  // 上传图片至云存储的函数
+  send() {
+    if (content.trim() === '') {
+      wx.showModal({
+        title: '请输入内容',
+        content: '',
+      })
+      return
+    }
+    wx.showLoading({
+      title: '正在发布~',
+    })
+    // 定义一个存放promise的数组
+    let promiseArr = []
+    // 存放fileId的数组
+    let fileIds = []
+    for (let i = 0; i < this.data.images.length; i++) {
+      let item = this.data.images[i]
+      // 正则匹配拓展名
+      let suffix = /[^\.]\w*$/.exec(item)[0]
+      let p = new Promise((resolve, reject) => {
+        wx.cloud.uploadFile({
+          // 上传至云端的路径
+          cloudPath: 'blog/' + Date.now() + '-' + Math.random() + 1000000 + '.' + suffix,
+          filePath: item,
+          success: (res) => {
+            console.log(res, '成功')
+            fileIds = fileIds.concat(res.fileID)
+            resolve(res.fileID)
+          },
+          fail: (err) => {
+            console.log(err, '失败')
+            reject()
+          }
+        })
+      })
+      promiseArr.push(p)
+    }
+    // 利用promise.all 当执行回调说明所有图片都成功上传
+    Promise.all(promiseArr).then(res => {
+      console.log(res, 'all')
+      db.collection('blog').add({
+        data: {
+          content, 
+          img: fileIds,
+          createTime: db.serverDate(), // 应该以服务端时间为准
+          ...userInfo
+        }
+      }).then(res => { 
+        wx.showToast({
+          title: '发布成功!',
+        })
+          wx.hideLoading()
+        setTimeout(() => {
+          wx.navigateBack()
+        },1000)
+      }).catch(err => {
+        console.err(err)
+        wx.hideLoading()
+      })
+    }).catch(err => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '发布失败,请稍后再试',
+        icon: 'none'
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     console.log(options, 'blog-edit接受数据')
+    userInfo = options
   },
 
   /**
