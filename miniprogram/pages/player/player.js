@@ -5,7 +5,7 @@ let musiclist = []
 let nowPlayingIndex = 0
 // 获取全局唯一的背景音频管理器
 const backgroundAudioManager = wx.getBackgroundAudioManager()
-// 获取全局app对象
+// 获取全局app对象 
 const app = getApp()
 Page({
 
@@ -89,8 +89,6 @@ Page({
     // 加载下一首之前先停止上一首
     if (!this.data.isSame) {
       backgroundAudioManager.stop()
-    } else {
-      backgroundAudioManager.play()
     }
     wx.showLoading({
       title: '歌曲加载中~',

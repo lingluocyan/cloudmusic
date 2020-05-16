@@ -1,1 +1,35 @@
 /* pages/blog/blog.wxss */
+.container {}
+/* 头部部分 */
+.header {
+  display: flex;
+  height: 100rpx;
+  align-items: center;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border:1px solid red;
+  z-index: 99;
+  width: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.search-container {
+  flex: 1;
+  /* border: 1px solid blue; */
+}
+
+.publish-container {
+  width: 68rpx;
+  height: 68rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.publish-container > .icon-fabu {
+  font-size: 48rpx;
+}

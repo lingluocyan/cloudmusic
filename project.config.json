@@ -83,6 +83,20 @@
 					"pathName": "pages/player/player",
 					"query": "musicId=1369798757&index=2",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/blog/blog",
+					"pathName": "pages/blog/blog",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "pages/blog-edit/blog-edit",
+					"pathName": "pages/blog-edit/blog-edit",
+					"query": "nickName=\"Pluto\"& avatarUrl=\"http://i0.hdslb.com/bfs/album/e7ecef478b7cf5a2310c002dafe255561337b156.png@214w_214h_1e_1c.png\"",
+					"scene": null
 				}
 			]
 		}
