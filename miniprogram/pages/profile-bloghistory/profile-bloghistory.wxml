@@ -1,0 +1,9 @@
+  <!-- 博客卡片列表 -->
+  <view class="blog-list">
+    <block wx:for="{{blogList}}" wx:key="_id">
+      <view class="blog-pane">
+        <x-blog-card bind:tap="goComment" data-id="{{item._id}}" blog="{{item}}" />
+        <x-blog-ctrl iconfont="iconfont" blog="{{item}}" blogId="{{item._id}}" icon-fenxiang="icon-fenxiang"  icon-pinglun="icon-pinglun"  />
+      </view>
+    </block>
+  </view>

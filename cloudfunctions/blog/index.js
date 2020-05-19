@@ -38,7 +38,6 @@ exports.main = async(event, context) => {
   })
   // 获取评论并插入数据库的云函数
   app.router("comment", async(ctx, next) => {
-    console.log(event, '输入event')
     await cloud.database().collection('blog-comment').add({
       data: {
         openId: event.userInfo.openId,
@@ -91,6 +90,13 @@ exports.main = async(event, context) => {
       commentList,
       detail
     }
+  })
+  // 获取当前OPENID对应的发现列表
+  app.router('getListbyOpenId',async (ctx,next)=> {
+    const { OPENID } = cloud.getWXContext()
+    ctx.body = await blogCollection.where({ _openid: OPENID}).skip(event.start).limit(event.count).get().then(res=> {
+      return res.data
+    })
   })
   return app.serve()
 }

@@ -1,42 +1,37 @@
-// pages/profile/profile.js
+// pages/profile-playhistory/profile-playhistory.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    musicHistoryList: []
+  },
 
-  },
-  // 点击生成小程序码
-  onTapQrCode() {
-    wx.showLoading({
-      title: '生成中~',
-    })
-    wx.cloud.callFunction({
-      name: 'getQrCode'
-    }).then(res => {
-      console.log(res, '云结果')
-      wx.previewImage({
-        urls: [res.result],
-        current: res.result
-      })
-      wx.hideLoading()
-    })
-  },
-  getOpenid() {
-    wx.cloud.callFunction({
-      name:'login'
-    }).then(res=> {
-      console.log(res)
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getOpenid()
+    this._getPlayHistory()
   },
-
+  _getPlayHistory() {
+    let openId = getApp().globalData.openid
+    let historyList = wx.getStorageSync(openId)
+    if (historyList.length == 0) {
+      wx.showModal({
+        title: '播放记录为空哦~',
+      })
+      return
+    }
+    this.setData({
+      musicHistoryList: historyList
+    })
+    // 把本地歌单替换为历史记录，以便在历史记录里可以播放下一首
+    wx.setStorage({
+      key: 'musiclist',
+      data: historyList,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

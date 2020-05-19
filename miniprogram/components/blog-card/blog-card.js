@@ -31,7 +31,6 @@ Component({
    */
   methods: {
     priviewImg(event) {
-      console.log(event, '@@@')
       let dataset = event.currentTarget.dataset
       wx.previewImage({
         current: dataset.imgUrl, // 当前显示图片的http链接

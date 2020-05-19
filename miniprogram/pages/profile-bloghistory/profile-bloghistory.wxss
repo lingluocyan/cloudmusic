@@ -1,0 +1,6 @@
+/* pages/profile-bloghistory/profile-bloghistory.wxss */
+
+.blog-pane {
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+}

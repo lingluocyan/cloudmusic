@@ -76,6 +76,7 @@ Component({
       let formatTime = this._dateFormat(currentTime)
       // 判断如果是同一秒内执行多次则取消执行，以便提高性能
       if (currentTime.toString().split('.')[0] !== currSec) {
+        // console.log(currSec,'currSec')
         this.setData({
           ['showTime.currentTime']: `${formatTime.min}:${formatTime.sec}`,
           movableDis: (movableAreaWidth - movableViewWidth) * currentTime / duration,

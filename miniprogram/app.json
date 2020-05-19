@@ -7,7 +7,9 @@
     "pages/player/player",
     "pages/demo/demo",
     "pages/blog-edit/blog-edit",
-    "pages/blog-comment/blog-comment"
+    "pages/blog-comment/blog-comment",
+    "pages/profile-playhistory/profile-playhistory",
+    "pages/profile-bloghistory/profile-bloghistory"
   ],
   "requiredBackgroundModes": [
     "audio",
@@ -16,9 +18,9 @@
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#d43c43",
+    "navigationBarBackgroundColor": "#d43c33",
     "navigationBarTitleText": "云音乐",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#474747",

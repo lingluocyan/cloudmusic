@@ -1,4 +1,5 @@
 // components/lyric/lyric.js
+let setFlag = true
 Component({
   /**
    * 组件的属性列表
@@ -49,7 +50,7 @@ Component({
   data: {
     lrcList: [],
     currentLyric: 0,
-    setFlag: true, // 状态位，判断是否赋值
+    // setFlag: true, // 状态位，判断是否赋值
   },
 
   /**
@@ -90,13 +91,13 @@ Component({
       let lrclist = this.data.lrcList
       // 如果当前播放的部分没有对应歌词，那么会移动到最底部并不会高亮
       // 如果最后一项有时间，不为空
-      if (this.data.setFlag && lrclist[lrclist.length - 1] && currentTime > lrclist[lrclist.length - 1].time) {
+      if (setFlag && lrclist[lrclist.length - 1] && currentTime > lrclist[lrclist.length - 1].time) {
         console.log('进入1')
         this.setData({
           currentLyric: -1,
           scrollTop: this.data.currentItemHeight * lrclist.length,
-          setFlag: false
         })
+        setFlag = false
       }
       // 如果没有歌词
       if (lrclist.length < 1) return
@@ -105,8 +106,8 @@ Component({
           this.setData({
             currentLyric: i - 1,
             scrollTop: this.data.currentItemHeight * (i - 1),
-            setFlag: true
           })
+          setFlag = true
           // 找到了则终止循环
           break
         }

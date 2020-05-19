@@ -21,7 +21,7 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 生命周期函数--监听页面加载 
    */
   onLoad: function(options) {
     console.log(options, '@@')
@@ -125,11 +125,13 @@ Page({
         backgroundAudioManager.coverImgUrl = music.al.picUrl
         backgroundAudioManager.singer = music.ar[0].name
         backgroundAudioManager.epname = music.al.name
+        // 在本地存入历史记录
+        this.savePlayHistory()
       }
       // 设置播放状态为true
-        this.setData({
-          isPlaying: true
-        })
+      this.setData({
+        isPlaying: true
+      })
       // 获取当前歌曲的歌词
       wx.cloud.callFunction({
         name: 'music',
@@ -175,6 +177,26 @@ Page({
     this.setData({
       isPlaying: false
     })
+  },
+  // 播放歌曲保存历史记录
+  savePlayHistory() {
+    let currentMusic = musiclist[nowPlayingIndex]
+    let openId = getApp().globalData.openid
+    console.log(openId,'openId')
+    let historyList = wx.getStorageSync(openId)
+    console.log(historyList,'historyList')
+    let isSameMusic = false
+    for (let i = 0; i < historyList.length; i++) {
+      // 说明是同一首
+      if (historyList[i].id == currentMusic.id) {
+        isSameMusic = true
+        break
+      }
+    }
+    if (!isSameMusic) {
+      historyList.unshift(currentMusic)
+      wx.setStorageSync(openId, historyList)
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
