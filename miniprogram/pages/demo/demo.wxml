@@ -5,4 +5,6 @@
   <button bindtap="change">更改排序</button>
   <button bindtap="getMusicInfo">获取音乐信息</button>
   <button bindtap="getMovieInfo">获取电影信息</button>
+  <open-data type="userCity"></open-data>
+  <button open-type="getUserInfo" bindgetuserinfo="getUser">获取用户西悉尼</button>
 </view>

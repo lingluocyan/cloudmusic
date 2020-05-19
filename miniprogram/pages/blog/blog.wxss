@@ -10,7 +10,7 @@
   top: 0;
   left: 0;
   right: 0;
-  border:1px solid red;
+  /* border:1px solid red; */
   z-index: 99;
   width: 100%;
   padding: 0 20rpx;
@@ -32,4 +32,14 @@
 
 .publish-container > .icon-fabu {
   font-size: 48rpx;
+}
+
+/* 博客列表样式 */
+.blog-list {
+  margin-top: 120rpx;
+}
+
+.blog-pane {
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
 }

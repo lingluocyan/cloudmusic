@@ -89,11 +89,13 @@ Page({
       return
     }
     wx.showLoading({
+      // 蒙版效果
+      mask: true,
       title: '正在发布~',
     })
     // 定义一个存放promise的数组
     let promiseArr = []
-    // 存放fileId的数组
+    // 存放fileId的数组 
     let fileIds = []
     for (let i = 0; i < this.data.images.length; i++) {
       let item = this.data.images[i]
@@ -122,21 +124,28 @@ Page({
       console.log(res, 'all')
       db.collection('blog').add({
         data: {
-          content, 
+          content,
           img: fileIds,
           createTime: db.serverDate(), // 应该以服务端时间为准
           ...userInfo
         }
-      }).then(res => { 
+      }).then(res => {
         wx.showToast({
           title: '发布成功!',
+          duration: 1000,
+          success: () => {
+            setTimeout(() => {
+              let page = getCurrentPages()
+              let prevPage = page[page.length - 2]
+              prevPage.onPullDownRefresh()
+              wx.navigateBack()
+            }, 1000)
+            console.log(page, 'pae')
+          }
         })
-          wx.hideLoading()
-        setTimeout(() => {
-          wx.navigateBack()
-        },1000)
+        wx.hideLoading()
       }).catch(err => {
-        console.err(err)
+        console.log(err)
         wx.hideLoading()
       })
     }).catch(err => {
@@ -151,7 +160,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options, 'blog-edit接受数据')
     userInfo = options
   },
 

@@ -2,7 +2,11 @@
   "usingComponents": {
     "x-search":"/components/search/search",
     "x-bottom-modal":"/components/bottom-modal/bottom-modal",
-    "x-login":"/components/login/login"
+    "x-login":"/components/login/login",
+    "x-blog-card": "/components/blog-card/blog-card",
+    "x-blog-ctrl": "/components/blog-ctrl/blog-ctrl"
   },
-  "navigationBarTitleText": "发现"
+  "navigationBarTitleText": "发现",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
 }

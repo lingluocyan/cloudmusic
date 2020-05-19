@@ -19,6 +19,15 @@ Page({
     })
   },
 
+  getUser(event) {
+    console.log(event)
+    wx.getUserInfo({
+      success:(res)=> {
+        console.log(res)
+      }
+    })
+  },
+
   change() {
     for (let i = 0;i<this.data.arr.length;i++) {
       let length = this.data.arr.length

@@ -1,0 +1,23 @@
+<view class="blog">
+  <!-- 个人信息部分 -->
+  <view class="title">
+    <view class="userImg">
+      <image src="{{blog.avatarUrl}}" lazy-load mode="widthFix"></image>
+      <!-- <image mode="widthFix" src="{{blog.avatarUrl}}></image> -->
+    </view>
+    <view class="userInfo">
+      <view class="userInfo-name">{{blog.nickName}}</view>
+      <view class="userInfo-time">{{_createTime}}</view>
+    </view>
+  </view>
+  <!-- 内容部分 -->
+  <view class="content">
+    {{blog.content}}
+  </view>
+  <!-- 图片列表部分 -->
+  <view class="imgList">
+    <block wx:for="{{blog.img}}" wx:key="*this">
+      <image class="imgItem" data-imgUrl="{{item}}" data-imgList="{{blog.img}}" catch:tap="priviewImg" mode="aspectFill" lazy-load src="{{item}}"></image>
+    </block>
+  </view>
+</view>

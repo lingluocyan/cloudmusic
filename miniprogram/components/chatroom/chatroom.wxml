@@ -27,6 +27,7 @@
         class="avatar"
         src="{{item.avatar}}"
         mode="scaleToFill"
+        lazy-load
       ></image> 
       <view class="main">
         <view class="nickname">{{item.nickName}}</view>
@@ -37,6 +38,7 @@
               src="{{item.tempFilePath || item.imgFileID}}" 
               data-fileid="{{item.tempFilePath || item.imgFileID}}" 
               class="image-content" 
+              lazy-load
               style="{{item.imgStyle}}"
               mode="scallToFill" 
               bindtap="onMessageImageTap"></image>
@@ -69,6 +71,7 @@
         class="btn-send-image" 
         mode="scaleToFill"
         bindtap="onChooseImage"
+        lazy-load
       ></image>
     </view>
 

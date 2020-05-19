@@ -1,4 +1,5 @@
 // pages/blog/blog.js
+let keyWord = ''
 Page({
 
   /**
@@ -58,26 +59,63 @@ Page({
     })
   },
   //  获取云数据库中博客的数据
-  _loadBlogList() {
+  _loadBlogList(start = 0, keyWord = '') {
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.cloud.callFunction({
       name: 'blog',
       data: {
-        start: 0,
+        start,
         count: 10,
+        keyWord,
         $url: 'list'
       }
     }).then(res => {
       this.setData({
         blogList: this.data.blogList.concat(res.result)
       })
+      if (res.result.length == 0) {
+        wx.showToast({
+          title: '没有更多了~',
+          icon: 'none'
+        })
+      }
+      wx.hideLoading()
+      wx.stopPullDownRefresh()
       console.log(res, '获取云函数')
+    }).catch(err => {
+      wx.stopPullDownRefresh()
+      wx.hideLoading()
+      console.err(err)
     })
+  },
+  // 点击卡片跳转到详情页
+  goComment(event) {
+    console.log(event, 'event')
+    wx.navigateTo({
+      url: `../blog-comment/blog-comment?blogId=${event.currentTarget.dataset.id}`,
+    })
+  },
+  // 搜索框搜索事件，内容右搜索组件传来
+  onSearch(event) {
+    // keyWord
+    keyWord = event.detail.keyWord
+    this.setData({
+      blogList: []
+    })
+    // 调用获取数据的方法，第一个参数是从第几条开始查，第二个参数是关键字
+    this._loadBlogList(0, keyWord)
+
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     console.log('onload')
+    this.setData({
+      blogList: []
+    })
     this._loadBlogList()
   },
 
@@ -91,8 +129,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-
+  onShow: function(options) {
+    console.log(options, 'onSHowoptions')
   },
 
   /**
@@ -113,20 +151,45 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    // 下拉刷新则清空原有数据并重新请求数据
+    this.setData({
+      blogList: []
+    })
+    this._loadBlogList(0)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    // 上拉触底，则请求新的数据
+    this._loadBlogList(this.data.blogList.length)
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function(event) {
+    let dataset = event.target.dataset
+    let realUrl = ''
+    wx.cloud.getTempFileURL({
+      fileList: [{
+        fileID: dataset.blog.img[0],
+        maxAge: 60 * 60, // one hour
+      }]
+    }).then(res => {
+      // get temp file URL
+      console.log(res.fileList)
+      let realUrl = res.fileList[0].tempFileURL
+    }).catch(error => {
+      // handle error
+    })
+    console.log(realUrl, 'realUrl')
 
+    return {
+      title: dataset.blog.content,
+      path: `/pages/blog-comment/blog-comment?blogId=${dataset.blogid}`,
+      imageUrl: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1963028709,2899678926&fm=26&gp=0.jpg"
+    }
   }
 })

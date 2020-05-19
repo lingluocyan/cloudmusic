@@ -14,7 +14,7 @@
   <!-- 底部控制栏部分（播放，上一首，下一首） -->
   <view class="control">
     <text class="iconfont icon-shangyishoushangyige" bindtap="onPrev"></text>
-    <text class="iconfont {{isPlaying ? 'icon-zanting1' : 'icon-bofang1'}}" bind:tap="togglePlaying"></text>
+    <text class="iconfont {{isPlaying ? 'icon-zanting11' : 'icon-bofang1'}}" bind:tap="togglePlaying"></text>
     <text class="iconfont icon-xiayigexiayishou" bindtap="onNext"></text>
   </view>
 </view>

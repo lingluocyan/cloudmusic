@@ -89,7 +89,7 @@
   font-size: 80rpx;
 }
 
-.icon-bofang1, .icon-zanting1 {
+.icon-bofang1, .icon-zanting11 {
   font-size: 100rpx;
   margin: 0 28rpx;
 }

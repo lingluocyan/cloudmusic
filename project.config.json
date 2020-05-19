@@ -97,6 +97,20 @@
 					"pathName": "pages/blog-edit/blog-edit",
 					"query": "nickName=Pluto&avatarUrl=http://i0.hdslb.com/bfs/album/e7ecef478b7cf5a2310c002dafe255561337b156.png@214w_214h_1e_1c.png",
 					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "pages/blog-comment/blog-comment",
+					"pathName": "pages/blog-comment/blog-comment",
+					"query": "blogId=982133855ec10d9c00e1256209ab8f23",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/profile/profile",
+					"pathName": "pages/profile/profile",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

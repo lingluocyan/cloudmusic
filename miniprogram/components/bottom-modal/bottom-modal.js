@@ -15,13 +15,13 @@ Component({
     // 开启多插槽的使用
     multipleSlots: true
   },
-  /**
+  /** 
    * 组件的初始数据
    */
   data: {
     
   },
-
+ 
   /**
    * 组件的方法列表
    */

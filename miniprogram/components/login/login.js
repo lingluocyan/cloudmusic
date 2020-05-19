@@ -17,7 +17,7 @@ Component({
 
   },
 
-  /**
+  /** 
    * 组件的方法列表
    */
   methods: {
@@ -30,6 +30,7 @@ Component({
         console.log(event.detail.userInfo,'event.detail.userInfo')
         this.triggerEvent("onLoginSuccess", event.detail.userInfo)
       } else {
+        console.log('fail')
         this.triggerEvent("onLoginFail")
       }
     }

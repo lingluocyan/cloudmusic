@@ -5,9 +5,18 @@
       <i class="iconfont icon-fabu" bind:tap="onPublish" />
     </view>
     <view class="search-container">
-      <x-search iconfont="iconfont" icon-sousuo="icon-sousuo" />
+      <x-search bind:onSearch="onSearch" iconfont="iconfont" icon-sousuo="icon-sousuo" />
     </view>
   </view>
+  <!-- 博客卡片列表 -->
+  <view class="blog-list">
+    <block wx:for="{{blogList}}" wx:key="_id">
+      <view class="blog-pane">
+        <x-blog-card bind:tap="goComment" data-id="{{item._id}}" blog="{{item}}" />
+        <x-blog-ctrl iconfont="iconfont" blog="{{item}}" blogId="{{item._id}}" icon-fenxiang="icon-fenxiang"  icon-pinglun="icon-pinglun"  />
+      </view>
+    </block>
+  </view>
   <!-- 底部弹出层部分 -->
-  <x-login showModal="{{showModal}}" bind:onLoginSuccess="onLoginSuccess" bind:onLoginFail="onLoginFail" bind:changeModal="changeModal"  />
+  <x-login showModal="{{showModal}}" bind:onLoginSuccess="onLoginSuccess" bind:onLoginFail="onLoginFail" bind:changeModal="changeModal" />
 </view>
