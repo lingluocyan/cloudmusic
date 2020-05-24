@@ -1,5 +1,6 @@
 // pages/playlist/playlist.js
 const MAX_LIMIT = 15
+const db = wx.cloud.database()
 Page({
 
   /**
@@ -45,11 +46,20 @@ Page({
       console.log(err, 'err')
     })
   },
-  /**
+  _getSwiperList() {
+    db.collection('swiper').get().then(res=> {
+      console.log(res,'ers')
+      this.setData({
+        swiperImgUrls: res.data
+      })
+    })
+  },
+  /** 
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     let _this = this
+    this._getSwiperList()
     wx.cloud.callFunction({
       name: 'login',
     }).then((res) => {
@@ -97,6 +107,7 @@ Page({
       playlist: []
     })
     this._getPlayList()
+    this._getSwiperList()
   },
 
   /**
